@@ -1,0 +1,25 @@
+{
+  "name": "click_element",
+  "description": "Click a DOM element on the current page identified by a CSS selector or XPath expression.",
+  "parameters": {
+    "type": "object",
+    "properties": {
+      "selector": {
+        "type": "string",
+        "description": "The CSS selector or XPath expression that uniquely identifies the element to click."
+      },
+      "selector_type": {
+        "type": "string",
+        "enum": ["css", "xpath"],
+        "default": "css",
+        "description": "Whether the selector is a CSS selector or an XPath expression."
+      },
+      "timeout": {
+        "type": "number",
+        "default": 10.0,
+        "description": "Maximum seconds to wait for the element to become clickable."
+      }
+    },
+    "required": ["selector"]
+  }
+}
