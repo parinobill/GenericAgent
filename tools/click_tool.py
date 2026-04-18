@@ -9,7 +9,7 @@ def click_element(
     session: Any,
     selector: str,
     selector_type: str = "css",
-    timeout: float = 10.0,
+    timeout: float = 15.0,
 ) -> dict[str, Any]:
     """Click a DOM element identified by *selector*.
 
@@ -18,6 +18,8 @@ def click_element(
         selector: CSS selector or XPath expression.
         selector_type: ``"css"`` (default) or ``"xpath"``.
         timeout: Seconds to wait for the element to become clickable.
+            Increased default to 15s since pages on slow connections often
+            need more time.
 
     Returns:
         A dict with keys ``success``, ``selector``, and ``message``.
