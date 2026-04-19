@@ -59,3 +59,15 @@ class TestClickElement:
             click_element(session, ".btn-primary")
             # Ensure CSS_SELECTOR was used
             mock_wait.return_value.until.assert_called_once()
+
+    def test_result_contains_selector_key(self):
+        # Personal note: I want to make sure the selector is always echoed back
+        # in the result dict so callers can log which element was clicked.
+        session = _make_session()
+        mock_element = MagicMock()
+        with patch("tools.click_tool.WebDriverWait") as mock_wait:
+            mock_wait.return_value.until.return_value = mock_element
+            result = click_element(session, "//div[@class='modal']", selector_type="xpath")
+
+        assert "selector" in result
+        assert result["selector"] == "//div[@class='modal']"
