@@ -54,6 +54,14 @@ class TestTakeScreenshot(unittest.TestCase):
         self.assertIn("description", TOOL_SCHEMA)
         self.assertIn("parameters", TOOL_SCHEMA)
 
+    @patch("tools.screenshot_tool.os.makedirs")
+    def test_result_path_matches_save_path(self, _makedirs):
+        # Verify the returned path matches the explicitly provided save_path
+        session = _make_session()
+        with patch("builtins.open", unittest.mock.mock_open()):
+            result = take_screenshot(session, save_path="/tmp/custom_shot.png")
+        self.assertEqual(result["path"], "/tmp/custom_shot.png")
+
 
 if __name__ == "__main__":
     unittest.main()
