@@ -71,3 +71,15 @@ class TestClickElement:
 
         assert "selector" in result
         assert result["selector"] == "//div[@class='modal']"
+
+    def test_failed_click_returns_success_false(self):
+        # Personal note: I noticed there was no test covering the failure path
+        # (e.g. element not found / click raises). Adding one for completeness.
+        session = _make_session()
+        with patch("tools.click_tool.WebDriverWait") as mock_wait:
+            mock_wait.return_value.until.side_effect = Exception("Element not found")
+            result = click_element(session, "#missing", selector_type="css")
+
+        assert result["success"] is False
+        assert "selector" in result
+        assert result["selector"] == "#missing"
