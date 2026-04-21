@@ -63,5 +63,10 @@ class TMWebDriver:
                 session = Session(session_id, session_info, queue.Queue())
                 print(f"Browser http connected: {session.url} (Session: {session_id})")  
                 self.sessions[session_id] = session
+            # Update session info on every poll so url/title stay current
+            else:
+                session = self.sessions[session_id]
+                session.info['url'] = session_info['url']
+                session.info['title'] = session_info['title']
             session = self.sessions[session_id]
-            if session.disconnect_at is not None and session.type != 'http': session.reconnect(queue.Queue(), sessi
+            if session.d
