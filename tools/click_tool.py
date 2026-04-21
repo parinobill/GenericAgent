@@ -10,6 +10,7 @@ def click_element(
     selector: str,
     selector_type: str = "css",
     timeout: float = 15.0,
+    scroll_into_view: bool = True,
 ) -> dict[str, Any]:
     """Click a DOM element identified by *selector*.
 
@@ -20,6 +21,9 @@ def click_element(
         timeout: Seconds to wait for the element to become clickable.
             Defaults to 15s; increased from 10s because I often work on
             slower connections and the original default caused flaky failures.
+        scroll_into_view: If ``True`` (default), scrolls the element into view
+            before clicking. Helps avoid clicks being intercepted by sticky
+            headers or footers.
 
     Returns:
         A dict with keys ``success``, ``selector``, and ``message``.
@@ -44,6 +48,12 @@ def click_element(
     element = WebDriverWait(driver, timeout).until(
         EC.element_to_be_clickable((by, selector))
     )
+
+    # Scroll the element into view before clicking to avoid interception
+    # by sticky navbars/banners — ran into this a lot on content-heavy sites.
+    if scroll_into_view:
+        driver.execute_script("arguments[0].scrollIntoView({block: 'center'});", element)
+
     element.click()
 
     return {
