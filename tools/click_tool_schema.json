@@ -16,8 +16,8 @@
       },
       "timeout": {
         "type": "number",
-        "default": 10.0,
-        "description": "Maximum seconds to wait for the element to become clickable."
+        "default": 30.0,
+        "description": "Maximum seconds to wait for the element to become clickable. Increased default to 30s to better handle slow-loading pages."
       }
     },
     "required": ["selector"]
