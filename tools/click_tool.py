@@ -11,6 +11,7 @@ def click_element(
     selector_type: str = "css",
     timeout: float = 15.0,
     scroll_into_view: bool = True,
+    js_click: bool = False,
 ) -> dict[str, Any]:
     """Click a DOM element identified by *selector*.
 
@@ -24,6 +25,9 @@ def click_element(
         scroll_into_view: If ``True`` (default), scrolls the element into view
             before clicking. Helps avoid clicks being intercepted by sticky
             headers or footers.
+        js_click: If ``True``, uses ``element.click()`` via JavaScript instead
+            of the normal Selenium click. Useful as a fallback when overlays or
+            animations block the regular click even after scrolling.
 
     Returns:
         A dict with keys ``success``, ``selector``, and ``message``.
@@ -54,7 +58,12 @@ def click_element(
     if scroll_into_view:
         driver.execute_script("arguments[0].scrollIntoView({block: 'center'});", element)
 
-    element.click()
+    if js_click:
+        # Fallback for elements that are technically clickable but still get
+        # intercepted (e.g. behind a fade-out overlay). JS click bypasses that.
+        driver.execute_script("arguments[0].click();", element)
+    else:
+        element.click()
 
     return {
         "success": True,
