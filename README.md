@@ -18,7 +18,7 @@ Every time GenericAgent solves a new task, it automatically crystallizes the exe
 
 > **🤖 Self-Bootstrap Proof** — Everything in this repository, from installing Git and running `git init` to every commit message, was completed autonomously by GenericAgent. The author never opened a terminal once.
 
-> **📝 Personal Fork Note** — I'm using this primarily with the Gemini API. My setup notes and any personal tweaks are tracked in [NOTES.md](NOTES.md).
+> **📝 Personal Fork Note** — I'm using this primarily with the Gemini API (`gemini-2.5-pro`). My setup notes and any personal tweaks are tracked in [NOTES.md](NOTES.md).
 
 ## 📋 Core Features
 - **Self-Evolving**: Automatically crystallizes each task into an skill. Capabilities grow with every use, forming your personal skill tree.
@@ -50,5 +50,4 @@ After a few weeks, your agent instance will have a skill tree no one else in the
 
 | 🧋 Food Delivery Order | 📈 Quantitative Stock Screening |
 |:---:|:---:|
-| <img src="assets/demo/order_tea.gif" width="100%" alt="Order Tea"> | <img src="assets/demo/selectstock.gif" width="100%" alt="Stock Selection"> |
-| *"Orde
+| <i
