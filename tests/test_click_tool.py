@@ -74,12 +74,13 @@ class TestClickElement:
 
     def test_failed_click_returns_success_false(self):
         # Personal note: I noticed there was no test covering the failure path
-        # (e.g. element not found / click raises). Adding one for completeness.
+        # where WebDriverWait raises an exception (e.g. element not found).
+        # Adding this so we have coverage for the error branch.
         session = _make_session()
         with patch("tools.click_tool.WebDriverWait") as mock_wait:
             mock_wait.return_value.until.side_effect = Exception("Element not found")
             result = click_element(session, "#missing", selector_type="css")
 
         assert result["success"] is False
-        assert "selector" in result
         assert result["selector"] == "#missing"
+        assert "Element not found" in result["message"]
